@@ -8,9 +8,7 @@ Java Development Kit (JDK) 17 or later
 Maven
 Docker (optional, for containerization)
 Installation
-Clone the repository:
-git clone git remote add origin git@github.com:ali-bouali/springboot-3-micro-service-demo.git
-
+Clone the repository
 Navigate to the project directory:
 Build and package each component with Maven:
 Project Components
