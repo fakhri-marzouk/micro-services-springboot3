@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: students
+  config:
+    import: optional:configserver:http://localhost:8888
+  kafka:
+    bootstrap-servers: localhost:9092
+    template:
+      default-topic: notificationId
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        spring:
+          json:
+            type:
+              mapping: event:com.alibou.student.event.PlaceStudentEvent
+
+

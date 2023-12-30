@@ -1,0 +1,51 @@
+server:
+  port: 8223
+spring:
+  application:
+    name: gateway-auth
+  cloud:
+    discovery:
+      enabled: true
+    gateway:
+      routes:
+        - id: SCHOOLS
+          uri: lb://SCHOOLS
+          predicates:
+            - Path=/api/v1/schools/**
+
+        - id: STUDENTS
+          uri: lb://STUDENTS
+          predicates:
+            - Path=/api/v1/students/**
+
+
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9090/realms/dive-into
+          jwk-set-uri: http://localhost:9090/realms/dive-into/protocol/openid-connect/certs
+  config:
+    import: optional:configserver:http://localhost:8888
+
+  main:
+    allow-bean-definition-overriding: true
+
+jwt:
+  auth:
+    converter:
+      resource-id: dive-into
+      principle-attribute: preferred_username
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+realm: dive-into
+server-url: http://localhost:9090
+client-id: dive-into
+grant-type: password
+name: admin
+password: admin
+client-secret: zIu2ex6iFmpPfF8N7my8ugRfShf3xfy5
