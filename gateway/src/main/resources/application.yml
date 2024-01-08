@@ -2,7 +2,7 @@ server:
   port: 8223
 spring:
   application:
-    name: gateway-auth
+    name: gateway
   cloud:
     discovery:
       enabled: true
@@ -18,16 +18,12 @@ spring:
           predicates:
             - Path=/api/v1/students/**
 
-
-
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:9090/realms/dive-into
-          jwk-set-uri: http://localhost:9090/realms/dive-into/protocol/openid-connect/certs
-  config:
-    import: optional:configserver:http://localhost:8888
+          issuer-uri: ${KEYCLOAK_SERVER_REALM:http://localhost:9090/realms/dive-into}
+          jwk-set-uri: ${KEYCLOAK_SERVER_PROTOCOL:http://localhost:9090/realms/dive-into/protocol/openid-connect/certs}
 
   main:
     allow-bean-definition-overriding: true
@@ -37,15 +33,17 @@ jwt:
     converter:
       resource-id: dive-into
       principle-attribute: preferred_username
-
 eureka:
+  instance:
+    hostname: localhost
   client:
-    fetch-registry: true
-    register-with-eureka: true
+    service-url:
+      defaultZone: ${DISCOVERY_SERVICE_URL:http://localhost:8761/eureka}
+
 realm: dive-into
-server-url: http://localhost:9090
+server-url: ${KEYCLOAK_SERVER_URL:http://localhost:9090}
 client-id: dive-into
 grant-type: password
 name: admin
 password: admin
-client-secret: zIu2ex6iFmpPfF8N7my8ugRfShf3xfy5
+client-secret: YZgjFZpuaqN89UoXwcxjrReoWjvGTJup

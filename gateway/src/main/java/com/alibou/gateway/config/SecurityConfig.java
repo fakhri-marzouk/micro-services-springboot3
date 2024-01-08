@@ -25,7 +25,6 @@ import java.util.List;
 @Configuration
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
-
 public class SecurityConfig {
     List<String> allowedHeaders = List.of(
             "Access-Control-Allow-Origin",
@@ -47,10 +46,10 @@ public class SecurityConfig {
         serverHttpSecurity.oauth2ResourceServer(oAuth2ResourceServerSpec -> oAuth2ResourceServerSpec.jwt(Customizer.withDefaults()));
         return serverHttpSecurity.build();
     }
+
     @Bean
     public CorsConfigurationSource corsConfiguration() {
         CorsConfiguration configuration = new CorsConfiguration();
-
         configuration.applyPermitDefaultValues();
         configuration.setAllowedOrigins(Collections.singletonList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));

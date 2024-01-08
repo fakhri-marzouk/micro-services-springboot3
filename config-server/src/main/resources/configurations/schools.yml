@@ -3,7 +3,7 @@ eureka:
     hostname: localhost
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: ${DISCOVERY_SERVICE_URL:http://localhost:8761/eureka}
 
 server:
   port: 8070
@@ -12,7 +12,7 @@ spring:
     name: schools
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/schools
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/schools}
     username: postgres
     password: password
   jpa:
@@ -20,12 +20,14 @@ spring:
       ddl-auto: update
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-
 application:
   config:
-    students-url: http://localhost:8090/api/v1/students
+    students-url: ${STUDENT_URL:http://localhost:8090/api/v1/students}
 
 management:
   tracing:
     sampling:
       probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: ${ZIPKIN_URL:http://localhost:9411/api/v2/spans}

@@ -48,7 +48,7 @@ public class Keycloak {
 
         // Set the response type to String to directly receive the JSON response
         return webClient.post()
-                .uri("http://localhost:9090/realms/dive-into/protocol/openid-connect/token")
+                .uri("http://keycloak:8080/realms/dive-into/protocol/openid-connect/token")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .body(BodyInserters.fromFormData(formData))
                 .exchange()
